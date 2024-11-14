@@ -1,7 +1,7 @@
 import GameHeader from "./GameHeader";
 import SudokuSolver from "./SudokuSolver";
 import ActionButtons from "./ActionButtons";
-import { Difficulty } from "../App";
+import { Difficulty } from "../types";
 
 type SidebarProps = {
   difficulty: Difficulty;

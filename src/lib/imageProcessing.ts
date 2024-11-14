@@ -1,4 +1,3 @@
-// utils/imageProcessing.ts
 import { createWorker } from "tesseract.js";
 
 export async function processSudokuImage(

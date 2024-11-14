@@ -1,17 +1,17 @@
-export type Grid = (number | null)[][];
+import { Difficulty, Grid } from "../types";
 
-export const generateSudoku = (difficulty: 'easy' | 'medium' | 'hard'): Grid => {
+export const generateSudoku = (difficulty: Difficulty): Grid => {
   const emptyCells = {
     easy: 30,
     medium: 45,
-    hard: 55
+    hard: 55,
   };
 
   const solvedGrid = createSolvedGrid();
-  
-  const puzzle = [...solvedGrid.map(row => [...row])];
+
+  const puzzle = [...solvedGrid.map((row) => [...row])];
   const cellsToRemove = emptyCells[difficulty];
-  
+
   let removed = 0;
   while (removed < cellsToRemove) {
     const row = Math.floor(Math.random() * 9);
@@ -19,7 +19,7 @@ export const generateSudoku = (difficulty: 'easy' | 'medium' | 'hard'): Grid => 
     if (puzzle[row][col] !== null) {
       const temp = puzzle[row][col];
       puzzle[row][col] = null;
-      
+
       if (countSolutions(puzzle) === 1) {
         removed++;
       } else {
@@ -27,12 +27,14 @@ export const generateSudoku = (difficulty: 'easy' | 'medium' | 'hard'): Grid => 
       }
     }
   }
-  
+
   return puzzle;
 };
 
 const createSolvedGrid = (): Grid => {
-  const grid: Grid = Array(9).fill(null).map(() => Array(9).fill(null));
+  const grid: Grid = Array(9)
+    .fill(null)
+    .map(() => Array(9).fill(null));
   fillGrid(grid);
   return grid;
 };
@@ -64,7 +66,12 @@ const shuffle = (array: number[]): number[] => {
   return array;
 };
 
-export const isValid = (grid: Grid, row: number, col: number, num: number): boolean => {
+export const isValid = (
+  grid: Grid,
+  row: number,
+  col: number,
+  num: number
+): boolean => {
   for (let x = 0; x < 9; x++) {
     if (grid[row][x] === num) return false;
   }
@@ -105,18 +112,18 @@ export const isSolved = (grid: Grid): boolean => {
 
 export const countSolutions = (grid: Grid, limit = 2): number => {
   const solutions: Grid[] = [];
-  
+
   const solve = (g: Grid): void => {
     if (solutions.length >= limit) return;
-    
+
     if (isSolved(g)) {
-      solutions.push(g.map(row => [...row]));
+      solutions.push(g.map((row) => [...row]));
       return;
     }
-    
+
     const [row, col] = findEmptyCell(g);
     if (row === -1) return;
-    
+
     for (let num = 1; num <= 9; num++) {
       if (isValid(g, row, col, num)) {
         g[row][col] = num;
@@ -125,8 +132,8 @@ export const countSolutions = (grid: Grid, limit = 2): number => {
       }
     }
   };
-  
-  solve([...grid.map(row => [...row])]);
+
+  solve([...grid.map((row) => [...row])]);
   return solutions.length;
 };
 
@@ -140,9 +147,10 @@ const findEmptyCell = (grid: Grid): [number, number] => {
 };
 
 export const checkInvalidCells = (grid: Grid): boolean[][] => {
-  const invalid: boolean[][] = Array(9).fill(null)
+  const invalid: boolean[][] = Array(9)
+    .fill(null)
     .map(() => Array(9).fill(false));
-    
+
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       const num = grid[i][j];
@@ -174,6 +182,6 @@ export const checkInvalidCells = (grid: Grid): boolean[][] => {
       }
     }
   }
-  
+
   return invalid;
 };

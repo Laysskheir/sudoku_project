@@ -1,6 +1,6 @@
 import React from "react";
 import { Pause, PlayIcon, HeartIcon } from "lucide-react";
-import { Difficulty } from "../App";
+import { Difficulty } from "../types";
 
 interface GameHeaderProps {
   difficulty: string;

@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Grid,
-  generateSudoku,
-  isSolved,
-  checkInvalidCells,
-} from "./lib/sudoku";
+import { generateSudoku, isSolved, checkInvalidCells } from "./lib/sudoku";
 import { solveSudoku, getHint } from "./lib/solver";
 
 import NumberPad from "./components/NumberPad";
@@ -14,8 +9,7 @@ import Sidebar from "./components/Sidebar";
 import GridContainer from "./components/GridContainer";
 import PauseOverlay from "./components/PauseOverlay ";
 import Alert from "./components/Alert";
-
-export type Difficulty = "easy" | "medium" | "hard";
+import { Difficulty, Grid } from "./types";
 
 function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
